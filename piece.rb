@@ -47,18 +47,21 @@ class Piece
     end.select {|pos| board.on_board?(pos) && board[pos].nil?}
   end
 
-  def available_jump_moves
+  def available_jump_moves(pos = self.position)
     moves = []
     move_diffs.each do |diff|
-      adjacent_space = position.zip_sum(diff)
+      adjacent_space = pos.zip_sum(diff)
       next_space = adjacent_space.zip_sum(diff)
       square = board[adjacent_space]
-      if square.is_a?(Piece) && square.color != color
+      if square.is_a?(Piece) && square.color != color #&& next_space.nil?
         moves << next_space #should be next_space
       end
     end
+    additional_jumps = moves.map do |move|
+      available_jump_moves(move)
+    end
 
-    moves
+    moves + additional_jumps
   end
 
 
