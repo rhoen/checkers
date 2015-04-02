@@ -1,7 +1,7 @@
 require 'byebug'
 require 'colorize'
 require_relative 'piece'
-require_relative 'array_helper'
+require_relative 'util'
 class Board
 
   attr_accessor :rows

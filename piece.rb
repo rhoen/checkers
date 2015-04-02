@@ -72,7 +72,6 @@ class Piece
   end
 
   def perform_moves!(board, move_sequence)
-    #new_board = board.dup
     if move_sequence.size == 1
       return true if board[self.position].perform_slide(move_sequence.first)
       board[self.position].perform_jump(move_sequence.first)
@@ -88,7 +87,7 @@ class Piece
   def valid_move_seq?(move_sequence)
     begin
       perform_moves!(board.dup, move_sequence)
-    rescue
+    rescue NotAvailableMoveError
       return false
     else
       return true

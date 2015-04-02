@@ -14,3 +14,6 @@ class Array
     end
   end
 end
+
+class NotAvailableMoveError < StandardError
+end
