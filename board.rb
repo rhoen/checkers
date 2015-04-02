@@ -6,12 +6,12 @@ class Board
 
   attr_accessor :rows
 
-  def initialize
-    make_starting_grid
+  def initialize(rows = make_starting_grid)
+    @rows = rows
   end
 
   def make_starting_grid
-    @rows = Array.new(8) {Array.new(8)}
+    Array.new(8) {Array.new(8)}
   end
 
   def render
@@ -62,6 +62,10 @@ class Board
     add_odd_row_pieces(7, color2)
 
     nil
+  end
+
+  def dup
+    new_board = board.new(@rows.deep_dup)
   end
 
   def [](pos)

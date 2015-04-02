@@ -44,6 +44,8 @@ class Piece
     self.position = to_pos
   end
 
+  
+
   def available_slide_moves
     move_diffs.map do |diff|
       position.zip_sum(diff)
@@ -66,7 +68,7 @@ class Piece
 
   def perform_moves!(move_sequence)
     move_sequence.each do |move|
-      break if perform_slide()
+      break if perform_slide(moves)
   end
 
   def move_diffs
