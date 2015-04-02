@@ -7,6 +7,16 @@ class Piece
     @king = king
   end
 
+  def render
+    if king
+      str = "⚙".colorize(color)
+    else
+      str = "☉".colorize(color)
+    end
+
+    str.colorize(:background => :black)
+  end
+
   def perform_slide
 
   end
