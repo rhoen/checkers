@@ -1,3 +1,4 @@
+require 'byebug'
 class Piece
 
   UP_DIRS = [[-1, -1], [-1, 1]]
@@ -24,6 +25,7 @@ class Piece
 
   def perform_slide(to_pos)
     raise NotAvailableMoveError unless available_slide_moves.include?(to_pos)
+    byebug
     board[self.position] = nil
     board[to_pos] = self
     self.position = to_pos
@@ -50,13 +52,13 @@ class Piece
     move_diffs.each do |diff|
       adjacent_space = position.zip_sum(diff)
       next_space = adjacent_space.zip_sum(diff)
-      square = board[[adjacent_space]]
-      if square.is_a?(piece) && square.color != color
-        moves << position.zip_sum(diff)
+      square = board[adjacent_space]
+      if square.is_a?(Piece) && square.color != color
+        moves << next_space #should be next_space
       end
-
-      moves
     end
+
+    moves
   end
 
 
