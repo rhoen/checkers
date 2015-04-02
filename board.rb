@@ -1,3 +1,4 @@
+require 'byebug'
 require 'colorize'
 require_relative 'piece'
 class Board
@@ -37,25 +38,27 @@ class Board
   def add_even_row_pieces(row, color)
     cols = [0, 2, 4, 6]
     cols.each do |col|
-      @rows[row, col] = Piece.new(@board, color) #add color of piece
+      self[[row, col]] = Piece.new(self, color) #add color of piece
     end
   end
 
   def add_odd_row_pieces(row, color)
     cols = [1, 3, 5, 7]
     cols.each do |col|
-      @rows[row, col] = Piece.new(@board, color) #add color of pieces
+      self[[row, col]] = Piece.new(self, color) #add color of pieces
     end
   end
 
   def add_starting_pieces
-    add_even_row_pieces(0, :black)
-    add_odd_row_pieces(1, :black)
-    add_even_row_pieces(2, :black)
+    color1 = :black
+    color2 = :white
+    add_even_row_pieces(0, color1)
+    add_odd_row_pieces(1, color1)
+    add_even_row_pieces(2, color1)
 
-    add_odd_row_pieces(5, :red)
-    add_even_row_pieces(6, :red)
-    add_odd_row_pieces(7, :red)
+    add_odd_row_pieces(5, color2)
+    add_even_row_pieces(6, color2)
+    add_odd_row_pieces(7, color2)
 
     nil
   end

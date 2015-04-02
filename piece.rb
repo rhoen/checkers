@@ -5,19 +5,20 @@ class Piece
     @board = board
     @color = color
     @king = king
+    @direction = set_direction
   end
 
   def render
     if king
-      str = "⚙".colorize(color)
+      str = "⚙ ".colorize(color)
     else
-      str = "☉".colorize(color)
+      str = "☉ ".colorize(color)
     end
 
-    str.colorize(:background => :black)
+    str.colorize(:background => :light_black)
   end
 
-  def perform_slide
+  def perform_slide(to_pos)
 
   end
 
@@ -29,6 +30,8 @@ class Piece
 
   end
 
-
+  def set_direction
+    color == :black ? :down : :up
+  end
 
 end
