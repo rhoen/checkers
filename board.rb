@@ -8,6 +8,7 @@ class Board
 
   def initialize(rows = make_starting_grid)
     @rows = rows
+    add_starting_pieces
   end
 
   def make_starting_grid
