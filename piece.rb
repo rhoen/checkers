@@ -71,18 +71,28 @@ class Piece
     moves
   end
 
-  def perform_moves!(move_sequence)
-    new_board = board.dup
+  def perform_moves!(board, move_sequence)
+    #new_board = board.dup
     if move_sequence.size == 1
-      break if new_board[self.position].perform_slide(move_sequence.first)
-      new_board[self.position].perform_jump(move_sequence.first)
-    elsif move_sequence.size > 1
+      return true if board[self.position].perform_slide(move_sequence.first)
+      board[self.position].perform_jump(move_sequence.first)
+    else #elsif move_sequence.size > 1
       move_sequence.each do |move|
-        new_board[self.position].perform_jump(move)
+        board[self.position].perform_jump(move)
       end
     end
-  rescue
-    raise InvalidMoveError
+
+    true
+  end
+
+  def valid_move_seq?(move_sequence)
+    begin
+      perform_moves!(board.dup, move_sequence)
+    rescue
+      return false
+    else
+      return true
+    end
   end
 
   def move_diffs
