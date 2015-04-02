@@ -31,9 +31,23 @@ class Board
     display_str
   end
 
+  def even_row_pieces(row)
+    cols = [0, 2, 4, 6]
+    cols.each do |col|
+      @rows[row, col] = Piece.new #add color of piece
+    end
+  end
+
+  def odd_row_pieces(row)
+    cols = [1, 3, 5, 7]
+    cols.each do |col|
+      @rows[row, col] = Piece.new #add color of pieces
+  end
+
   def add_starting_pieces
     @rows.each do |row|
       row.each do |square|
+
 
   end
 
