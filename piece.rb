@@ -29,8 +29,11 @@ class Piece
     self.position = to_pos
   end
 
-  def perform_jump
-
+  def perform_jump(to_pos)
+    raise NotAvailableMoveError unless available_jump_moves.include?(to_pos)
+    board[self.position] = nil
+    board[to_pos] = self
+    self.position = to_pos
   end
 
   def available_slide_moves
@@ -53,7 +56,7 @@ class Piece
     end
   end
 
-  
+
 
   def move_diffs
     if king
