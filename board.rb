@@ -45,7 +45,7 @@ class Board
   def add_odd_row_pieces(row, color)
     cols = [1, 3, 5, 7]
     cols.each do |col|
-      self[[row, col]] = Piece.new(self, color) #add color of pieces
+      self[[row, col]] = Piece.new(self, [row, col], color) #add color of pieces
     end
   end
 
@@ -71,6 +71,10 @@ class Board
   def []=(pos, piece)
     row, col = pos
     @rows[row][col] = piece
+  end
+
+  def on_board?(pos)
+
   end
 
 end

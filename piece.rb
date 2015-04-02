@@ -1,7 +1,7 @@
 class Piece
 
-  attr_accessor :king, :board, :color
-  def initialize(board, color, king = false)
+  attr_accessor :king, :board, :color, :position
+  def initialize(board, position, color, king = false)
     @board = board
     @color = color
     @king = king
@@ -24,6 +24,11 @@ class Piece
 
   def perform_jump
 
+  end
+
+  def available_moves
+    move_diffs.map do |diff|
+      pos
   end
 
   def move_diffs
