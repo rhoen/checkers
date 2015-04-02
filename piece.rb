@@ -27,7 +27,15 @@ class Piece
   end
 
   def move_diffs
-
+    up = [[-1, -1], [-1, 1]]
+    down = [[1, -1], [1, 1]]
+    if king
+      up.concat(down)
+    elsif direction == :down
+      down
+    else
+      up
+    end
   end
 
   def set_direction

@@ -50,7 +50,7 @@ class Board
   end
 
   def add_starting_pieces
-    color1 = :black
+    color1 = :black # piece 'direction' is dependent on color
     color2 = :white
     add_even_row_pieces(0, color1)
     add_odd_row_pieces(1, color1)
