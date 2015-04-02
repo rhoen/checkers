@@ -40,10 +40,20 @@ class Piece
   end
 
   def available_jump_moves
-    
+    moves = []
+    move_diffs.each do |diff|
+      adjacent_space = position.zip_sum(diff)
+      next_space = adjacent_space.zip_sum(diff)
+      square = board[[adjacent_space]]
+      if square.is_a?(piece) && square.color != color
+        moves << position.zip_sum(diff)
+      end
+
+      moves
+    end
   end
 
-
+  
 
   def move_diffs
     if king
