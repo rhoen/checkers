@@ -86,7 +86,9 @@ class Piece
 
   def valid_move_seq?(move_sequence)
     begin
-      perform_moves!(board.dup, move_sequence)
+      new_board = board.dup
+      byebug
+      perform_moves!(new_board, move_sequence)
     rescue NotAvailableMoveError
       return false
     else
@@ -102,6 +104,10 @@ class Piece
     else
       UP_DIRS
     end
+  end
+
+  def dup
+    Piece.new(nil, self.position, self.color, king)
   end
 
   def set_direction

@@ -65,7 +65,13 @@ class Board
   end
 
   def dup
-    new_board = board.new(@rows.deep_dup)
+    new_board = Board.new(@rows.deep_dup)
+    new_board.rows.flatten.compact.each do |piece|
+      new_board[piece.position] = piece
+      piece.board = new_board
+    end
+
+    new_board
   end
 
   def [](pos)

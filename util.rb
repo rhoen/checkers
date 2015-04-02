@@ -9,10 +9,16 @@ class Array
 
   def deep_dup
     self.map do |el|
-      return el.dup unless el.is_a?(Array)
-      el.deep_dup
+      if el.nil?
+        el
+      elsif !el.is_a?(Array)
+        el.dup
+      else
+        el.deep_dup
+      end
     end
   end
+
 end
 
 class NotAvailableMoveError < StandardError
