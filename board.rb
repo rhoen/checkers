@@ -12,7 +12,7 @@ class Board
   end
 
   def render
-    is_white = true
+    is_white = false
 
     display_str = ""
     @rows.each do |row|
@@ -24,6 +24,7 @@ class Board
         else
           display_str << "  ".colorize(:background => :light_black)
         end
+        is_white = !is_white
       end.join("")
     end.join("\n")
 
@@ -32,7 +33,18 @@ class Board
 
   def add_starting_pieces
     @rows.each do |row|
-      row
+      row.each do |square|
+
+  end
+
+  def [](pos)
+    row, col = pos
+    @rows[row][col]
+  end
+
+  def []=(pos, piece)
+    row, col = pos
+    @rows[row][col] = piece
   end
 
 end
