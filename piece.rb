@@ -29,6 +29,7 @@ class Piece
     board[self.position] = nil
     board[to_pos] = self
     self.position = to_pos
+    true
   end
 
   def perform_jump(to_pos)
@@ -39,6 +40,7 @@ class Piece
     captured = self.position.zip_sum(direction_moved)
     board[captured] = nil
     self.position = to_pos
+    true
   end
 
   def available_slide_moves
@@ -53,15 +55,17 @@ class Piece
       adjacent_space = pos.zip_sum(diff)
       next_space = adjacent_space.zip_sum(diff)
       square = board[adjacent_space]
-      if square.is_a?(Piece) && square.color != color #&& next_space.nil?
+      if square.is_a?(Piece) && square.color != color && board[next_space].nil?
         moves << next_space #should be next_space
       end
     end
-    additional_jumps = moves.map do |move|
-      available_jump_moves(move)
-    end
+    
+    moves
+  end
 
-    moves + additional_jumps
+  def perform_moves!(move_sequence)
+    move_sequence.each do |move|
+      break if perform_slide()
   end
 
 
