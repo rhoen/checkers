@@ -10,12 +10,22 @@ class CheckersGame
   end
 
   def play
-    
+    until board.over?
+      display
+      puts "Current player is: "
+      input = @current_player.get_input
+      move(input)
+    end
+    puts "The winner is: #{board.winner}"
   end
 
   def display
     puts @board.render
-    puts "Current player is: "
+  end
+
+  def move(input)
+    piece, move_sequence = input
+    piece.perform_moves(move_sequence)
   end
 
 end
