@@ -33,13 +33,16 @@ class Piece
     raise NotAvailableMoveError unless available_jump_moves.include?(to_pos)
     board[self.position] = nil
     board[to_pos] = self
+    direction_moved = to_pos.zip_difference(self.position)
+    captured = self.position.zip_sum(direction_moved)
+    board[captured] = nil
     self.position = to_pos
   end
 
   def available_slide_moves
     move_diffs.map do |diff|
       position.zip_sum(diff)
-    end.select {|pos| board.on_board?(pos) && board[[pos]].nil?}
+    end.select {|pos| board.on_board?(pos) && board[pos].nil?}
   end
 
   def available_jump_moves
