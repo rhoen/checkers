@@ -24,13 +24,13 @@ class Piece
   end
 
   def perform_slide(to_pos)
-    raise NotAvailableMoveError unless available_slide_moves.include?(to_pos)
+    return false unless available_slide_moves.include?(to_pos)
     move(to_pos)
     true
   end
 
   def perform_jump(to_pos)
-    raise NotAvailableMoveError unless available_jump_moves.include?(to_pos)
+    return false unless available_jump_moves.include?(to_pos)
     direction_moved = to_pos.zip_difference(self.position)
     captured = self.position.zip_sum(direction_moved)
     board[captured] = nil
@@ -71,29 +71,30 @@ class Piece
     moves
   end
 
-  def perform_moves!(board, move_sequence)
-    if move_sequence.size == 1
-      return true if board[self.position].perform_slide(move_sequence.first)
-      board[self.position].perform_jump(move_sequence.first)
+  def perform_moves(move_sequence)
+    if board.valid_move_seq?(self, move_sequence)
+      perform_moves!(move_sequence)
+    else
+      raise InvalidMoveError
+    end
+  end
+
+  def perform_moves!(move_sequence)
+    #byebug
+    if move_sequence.size < 1
+      raise InvalidMoveError
+    elsif move_sequence.size == 1
+      unless perform_slide(move_sequence.first) ||
+             perform_jump(move_sequence.first)
+        raise InvalidMoveError
+      end
     else #elsif move_sequence.size > 1
       move_sequence.each do |move|
-        board[self.position].perform_jump(move)
+        raise InvalidMoveError unless perform_jump(move)
       end
     end
 
     true
-  end
-
-  def valid_move_seq?(move_sequence)
-    begin
-      new_board = board.dup
-      byebug
-      perform_moves!(new_board, move_sequence)
-    rescue NotAvailableMoveError
-      return false
-    else
-      return true
-    end
   end
 
   def move_diffs

@@ -64,6 +64,17 @@ class Board
     nil
   end
 
+  def valid_move_seq?(piece, move_sequence)
+    begin
+      new_board = self.dup
+      new_board[piece.position].perform_moves!(move_sequence)
+    rescue InvalidMoveError
+      return false
+    else
+      return true
+    end
+  end
+
   def dup
     new_board = Board.new(@rows.deep_dup)
     new_board.rows.flatten.compact.each do |piece|

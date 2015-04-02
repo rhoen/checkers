@@ -21,5 +21,5 @@ class Array
 
 end
 
-class NotAvailableMoveError < StandardError
+class InvalidMoveError < StandardError
 end
