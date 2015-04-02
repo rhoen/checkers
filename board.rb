@@ -76,6 +76,23 @@ class Board
     end
   end
 
+  def over?
+    piece_count.any?{|k, v| v == 0} ? true : false
+  end
+
+  def winner
+    over? ? piece_count.select {|k, v| v > 0}.keys.first : nil
+  end
+
+  def piece_count
+    count = Hash.new(0)
+    rows.flatten.compace.each do |piece|
+      count[piece.color] += 1
+    end
+
+    count
+  end
+
   def dup
     new_board = Board.new(@rows.deep_dup)
     new_board.rows.flatten.compact.each do |piece|

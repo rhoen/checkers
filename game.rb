@@ -9,6 +9,13 @@ class CheckersGame
     # @current_player = :black
   end
 
-  
+  def play
+    
+  end
+
+  def display
+    puts @board.render
+    puts "Current player is: "
+  end
 
 end
