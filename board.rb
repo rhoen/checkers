@@ -1,4 +1,5 @@
 require 'colorize'
+require_relative 'piece'
 class Board
 
   attr_accessor :rows
@@ -13,8 +14,8 @@ class Board
 
   def render
     is_white = false
-
     display_str = ""
+
     @rows.each do |row|
       row.each do |piece|
         if piece
@@ -25,8 +26,10 @@ class Board
           display_str << "  ".colorize(:background => :light_black)
         end
         is_white = !is_white
-      end.join("")
-    end.join("\n")
+      end
+      display_str << "\n"
+      is_white = !is_white
+    end
 
     display_str
   end
@@ -53,9 +56,8 @@ class Board
     add_odd_row_pieces(5, :red)
     add_even_row_pieces(6, :red)
     add_odd_row_pieces(7, :red)
-  end
 
-
+    nil
   end
 
   def [](pos)
