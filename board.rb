@@ -74,7 +74,7 @@ class Board
   end
 
   def on_board?(pos)
-
+    pos.all? {|el| el.between?(0,7)}
   end
 
 end

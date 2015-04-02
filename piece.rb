@@ -28,7 +28,8 @@ class Piece
 
   def available_moves
     move_diffs.map do |diff|
-      pos
+      position.zip_sum(diff)
+    end.reject {|pos| board.on_board?(pos)}
   end
 
   def move_diffs
