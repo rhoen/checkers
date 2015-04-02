@@ -1,6 +1,7 @@
 require 'byebug'
 require 'colorize'
 require_relative 'piece'
+require_relative 'array_helper'
 class Board
 
   attr_accessor :rows
@@ -38,7 +39,7 @@ class Board
   def add_even_row_pieces(row, color)
     cols = [0, 2, 4, 6]
     cols.each do |col|
-      self[[row, col]] = Piece.new(self, color) #add color of piece
+      self[[row, col]] = Piece.new(self, [row, col], color) #add color of piece
     end
   end
 

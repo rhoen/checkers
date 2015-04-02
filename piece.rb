@@ -1,10 +1,11 @@
 class Piece
 
-  attr_accessor :king, :board, :color, :position
+  attr_accessor :king, :board, :color, :position, :direction
   def initialize(board, position, color, king = false)
     @board = board
     @color = color
     @king = king
+    @position = position
     @direction = set_direction
   end
 
