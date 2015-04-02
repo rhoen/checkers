@@ -25,22 +25,23 @@ class Piece
 
   def perform_slide(to_pos)
     raise NotAvailableMoveError unless available_slide_moves.include?(to_pos)
-    byebug
-    board[self.position] = nil
-    board[to_pos] = self
-    self.position = to_pos
+    move(to_pos)
     true
   end
 
   def perform_jump(to_pos)
     raise NotAvailableMoveError unless available_jump_moves.include?(to_pos)
-    board[self.position] = nil
-    board[to_pos] = self
     direction_moved = to_pos.zip_difference(self.position)
     captured = self.position.zip_sum(direction_moved)
     board[captured] = nil
-    self.position = to_pos
+    move(to_pos)
     true
+  end
+
+  def move(to_pos)
+    board[self.position] = nil
+    board[to_pos] = self
+    self.position = to_pos
   end
 
   def available_slide_moves
@@ -59,7 +60,7 @@ class Piece
         moves << next_space #should be next_space
       end
     end
-    
+
     moves
   end
 
@@ -67,8 +68,6 @@ class Piece
     move_sequence.each do |move|
       break if perform_slide()
   end
-
-
 
   def move_diffs
     if king
